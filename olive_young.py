@@ -47,6 +47,7 @@ def scrape_products():
 
         full_price_tag = product.select_one("div.price-info > span")
         discounted_price_tag = product.select_one("strong.point")
+        no_discounts_price_tag = product.select_one("div.price-info > strong")
         name_tag = product.select_one("dl.brand-info > dd")
         brand_tag = product.select_one("dl.brand-info > dt")
         ranking_tag = product.select_one("div.rank-badge > span")
@@ -55,8 +56,8 @@ def scrape_products():
         kor_name_tag = product.select_one("input.korPrdtName")
 
         all_products.append({
-            'full_price': full_price_tag.get_text(strip=True) if full_price_tag else "",
-            'discounted_price': discounted_price_tag.get_text(strip=True) if discounted_price_tag else "",
+            'full_price': full_price_tag.get_text(strip=True) if full_price_tag else no_discounts_price_tag.get_text(strip=True),
+            'discounted_price': discounted_price_tag.get_text(strip=True) if discounted_price_tag else no_discounts_price_tag.get_text(strip=True),
             'name': name_tag.get_text(strip=True) if name_tag else "",
             'name_kor': kor_name_tag.get("value", "") if kor_name_tag else "",
             'brand': brand_tag.get_text(strip=True) if brand_tag else "",
