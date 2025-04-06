@@ -71,12 +71,7 @@ def scrape_products():
     return all_products
 
 
-def read_products(filename):
-    with open(filename, "r", encoding="utf-8") as file:
-        csv_reader = DictReader(file)
-        return list(csv_reader)
-        # for thing in csv_reader:
-        #     print(thing)
+
 
 
 def write_products(products):
@@ -87,6 +82,6 @@ def write_products(products):
         for product in products:
             csv_writer.writerow(product)
 
-read_products("products.csv")
+
 products = scrape_products()
 write_products(products)
