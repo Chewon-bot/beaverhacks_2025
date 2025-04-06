@@ -39,27 +39,6 @@ def scrape_products(product_name):
         products = soup.select("section.pdp-main")
         for product in products:
             sleep(2)
-            # products = soup.select(".order-best-product")
-            #         for product in products:
-            #             # inside of a span, just find by class
-            #             all_products.append({
-            #                 'discounted_price': product.select("product.price-info > span").get_text(strip=True),
-            #                 # should filter out the usd
-            #                 'full_price': product.select("div.price-info > strong").attrs['point'],
-            #                 # should filter out the usd
-            #                 'name': product.select("dl.brand-info > dd").get_text(strip=True), #
-            #                 'name_kor': product.select("input.korPrdtName").attrs['value'],  #
-            #                 'brand': product.select("dl.brand-info > dt").get_text(strip=True), #
-            #                 'ranking': product.select("div.rank-badge > span").get_text(strip=True),  #
-            #                 'photo': product.select("div.unit-thumb > img").attrs['src'],  #
-            #                 'link': product.select("div.unit-thumb > a").attrs['title'] #
-            #             })
-            #             # print(quote.find(class_ = "text").get_text())  # grab txt out o them
-            #
-            #             # wanna get attribute(href) => use square bracket syntax.
-            #
-            #             #  how happen on every page? use next link =>grab url and scrape that url =>extract the url and scrape that url=>....
-            #             # li w/ class="next" , find a tag w/ class="next"
             full_price_tag = product.select_one("span.pdp__product-price > span")
             name_tag = product.select_one("h1.pdp__product-title")  #
             brand_tag = product.select_one("h3.pdp__product-vendor > a")  #

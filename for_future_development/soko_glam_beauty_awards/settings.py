@@ -1,4 +1,4 @@
-# Scrapy settings for soko_glam_beauty_awards project
+# Scrapy settings for for_future_development project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "soko_glam_beauty_awards"
+BOT_NAME = "for_future_development"
 
-SPIDER_MODULES = ["soko_glam_beauty_awards.spiders"]
-NEWSPIDER_MODULE = "soko_glam_beauty_awards.spiders"
+SPIDER_MODULES = ["for_future_development.spiders"]
+NEWSPIDER_MODULE = "for_future_development.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "soko_glam_beauty_awards (+http://www.yourdomain.com)"
+#USER_AGENT = "for_future_development (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "soko_glam_beauty_awards.middlewares.SokoGlamBeautyAwardsSpiderMiddleware": 543,
+#    "for_future_development.middlewares.SokoGlamBeautyAwardsSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "soko_glam_beauty_awards.middlewares.SokoGlamBeautyAwardsDownloaderMiddleware": 543,
+#    "for_future_development.middlewares.SokoGlamBeautyAwardsDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "soko_glam_beauty_awards.pipelines.SokoGlamBeautyAwardsPipeline": 300,
+#    "for_future_development.pipelines.SokoGlamBeautyAwardsPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
