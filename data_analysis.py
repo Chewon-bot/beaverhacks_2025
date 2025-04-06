@@ -94,13 +94,14 @@ plt.show()
 # print(kbeauty_total_full.columns)
 
 # Wordcloud: Trend of Top 100 K-Beauty Products in Korea
-product_word_k = kbeauty_total_full['name_k']
+product_word_k = kbeauty_total['name_k']
 
 text_k = ' '.join(product_word_k.dropna().astype(str))
 
 wordcloud_k = WordCloud(background_color='white',
                       width=800,
-                      height=400).generate(text_k)
+                      height=400,
+                      regexp=r"\b[a-zA-Z0-9\-']+\b").generate(text_k)
 
 plt.figure(figsize=(12, 6))
 plt.imshow(wordcloud_k, interpolation='bilinear')
@@ -109,18 +110,54 @@ plt.text(0.5, -0.08, "Wordcloud: Trend of Top 100 K-Beauty Products in Korea",
          fontsize=16, ha='center', va='top', fontname='Calibri', transform=plt.gca().transAxes)
 plt.show()
 
-# Wordcloud: Wordcloud: Trend of Top 100 K-Beauty Products in U.S.
+# Wordcloud: Trend of Top 100 K-Beauty Products in U.S.
 product_word_u = kbeauty_total_full['name_u']
 
 text_u = ' '.join(product_word_u.dropna().astype(str))
 
 wordcloud_u = WordCloud(background_color='white',
                       width=800,
-                      height=400).generate(text_u)
+                      height=400,
+                      regexp=r"\b[a-zA-Z0-9\-']+\b").generate(text_u)
 
 plt.figure(figsize=(12, 6))
 plt.imshow(wordcloud_u, interpolation='bilinear')
 plt.axis('off')
 plt.text(0.5, -0.08, f"Wordcloud: Trend of Top 100 K-Beauty Products in U.S. (only {len(kbeauty_total_full)} items available)",
+         fontsize=16, ha='center', va='top', fontname='Calibri', transform=plt.gca().transAxes)
+plt.show()
+
+
+# Wordcloud: Trend of Most Popular K-Beauty Brands in Korea
+brand_word_k = kbeauty_total['brand_k']
+
+brand_k = ' '.join(brand_word_k.dropna().astype(str))
+
+brand_wordcloud_k = WordCloud(background_color='white',
+                      width=800,
+                      height=400,
+                      regexp=r"\b[a-zA-Z0-9\-']+\b").generate(brand_k)
+
+plt.figure(figsize=(12, 6))
+plt.imshow(brand_wordcloud_k, interpolation='bilinear')
+plt.axis('off')
+plt.text(0.5, -0.08, "Wordcloud: Trend of Most Popular K-Beauty Brands in Korea",
+         fontsize=16, ha='center', va='top', fontname='Calibri', transform=plt.gca().transAxes)
+plt.show()
+
+# Wordcloud: Trend of Most Popular K-Beauty Brands in USA
+brand_word_u = kbeauty_total_full['brand_u']
+
+brand_u = ' '.join(brand_word_u.dropna().astype(str))
+
+brand_wordcloud_u = WordCloud(background_color='white',
+                      width=800,
+                      height=400,
+                      regexp=r"\b[a-zA-Z0-9\-']+\b").generate(brand_u)
+
+plt.figure(figsize=(12, 6))
+plt.imshow(brand_wordcloud_u, interpolation='bilinear')
+plt.axis('off')
+plt.text(0.5, -0.08, f"Wordcloud: Trend of Most Popular K-Beauty Brands in USA. (only {len(kbeauty_total_full)} items available)",
          fontsize=16, ha='center', va='top', fontname='Calibri', transform=plt.gca().transAxes)
 plt.show()
