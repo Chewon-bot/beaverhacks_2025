@@ -1,5 +1,4 @@
-# https://www.yesstyle.com/en/skinfood-carrot-carotene-calming-water-pad-60-pcs/info.html/pid.1093254315
-# https://global.oliveyoung.com/display/page/best-seller?target=pillsTab1Nav2
+# https://sokoglam.com/products/neogen-dermalogy-real-niacinamide-glow-up-daily-mask?_pos=4&_sid=a5c6d5f5d&_ss=r
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import requests
@@ -10,6 +9,8 @@ from random import choice
 from csv import DictWriter
 
 
+
+
 def scrape_products():
     all_products = []
     options = Options()
@@ -18,54 +19,48 @@ def scrape_products():
 
     driver = webdriver.Chrome(options=options)
 
-    BASE_URL = "https://global.oliveyoung.com/display/page/best-seller?target=pillsTab1Nav2"
+    BASE_URL = "https://sokoglam.com/products/neogen-dermalogy-real-niacinamide-glow-up-daily-mask?_pos=4&_sid=a5c6d5f5d&_ss=r"
     print(f"Now scraping {BASE_URL}...")  # have idea of what's happening
     driver.get(BASE_URL)
     sleep(5)
 
     soup = BeautifulSoup(driver.page_source, "html.parser")  # indeed parsing html
 
-    products = soup.select("li.order-best-product")
+    products = soup.select("section.pdp-main")
     for product in products:
-        sleep(5)
+        sleep(10)
 
-        # def parse(self, response):
-        #         products = response.css('div.card-information')  # Updated to match actual structure
-        #         for idx, product in enumerate(products, start=1):
-        #             product_data = {
-        #                 'ranking': idx,
-        #                 'name': product.css('p.product-title::text').get(default='').strip(),
-        #                 'brand': product.css('span.vendor::text').get(default='').strip(),
-        #                 'price': product.css('span.price::text').get(default='').strip(),
-        #                 'link': response.urljoin(product.css('a.full-unstyled-link::attr(href)').get()),
-        #                 'photo': product.css('img.motion-reduce::attr(src)').get(default=''),
-        #             }
+        # products = soup.select(".order-best-product")
+        #         for product in products:
+        #             # inside of a span, just find by class
+        #             all_products.append({
+        #                 'discounted_price': product.select("product.price-info > span").get_text(strip=True),
+        #                 # should filter out the usd
+        #                 'full_price': product.select("div.price-info > strong").attrs['point'],
+        #                 # should filter out the usd
+        #                 'name': product.select("dl.brand-info > dd").get_text(strip=True), #
+        #                 'name_kor': product.select("input.korPrdtName").attrs['value'],  #
+        #                 'brand': product.select("dl.brand-info > dt").get_text(strip=True), #
+        #                 'ranking': product.select("div.rank-badge > span").get_text(strip=True),  #
+        #                 'photo': product.select("div.unit-thumb > img").attrs['src'],  #
+        #                 'link': product.select("div.unit-thumb > a").attrs['title'] #
+        #             })
+        #             # print(quote.find(class_ = "text").get_text())  # grab txt out o them
         #
-        #             print(product_data)
-        #             yield product_data
+        #             # wanna get attribute(href) => use square bracket syntax.
         #
-        #         # Pagination (if needed)
-        #         next_page = response.css('a.pagination__next::attr(href)').get()
-        #         if next_page:
-        #             yield response.follow(next_page, self.parse)
-        full_price_tag = product.select_one("div.price-info > span")
-        discounted_price_tag = product.select_one("strong.point")
-        name_tag = product.select_one("dl.brand-info > dd")
-        brand_tag = product.select_one("dl.brand-info > dt")
-        ranking_tag = product.select_one("div.rank-badge > span")
-        photo_tag = product.select_one("div.unit-thumb img")
-        link_tag = product.select_one("div.unit-thumb a")
-        kor_name_tag = product.select_one("input.korPrdtName")
+        #             #  how happen on every page? use next link =>grab url and scrape that url =>extract the url and scrape that url=>....
+        #             # li w/ class="next" , find a tag w/ class="next"
+        full_price_tag = product.select_one("span.pdp__product-price > span")
+        name_tag = product.select_one("h1.pdp__product-title") #
+        brand_tag = product.select_one("h3.pdp__product-vendor > a") #
+        photo_tag = product.select_one("div.unit-thumb > img")
 
         all_products.append({
             'full_price': full_price_tag.get_text(strip=True) if full_price_tag else "",
-            'discounted_price': discounted_price_tag.get_text(strip=True) if discounted_price_tag else "",
-            'name': name_tag.get_text(strip=True) if name_tag else "",
-            'name_kor': kor_name_tag.get("value", "") if kor_name_tag else "",
+            'name': name_tag.get_text(strip=True) if name_tag else "", #
             'brand': brand_tag.get_text(strip=True) if brand_tag else "",
-            'ranking': ranking_tag.get_text(strip=True) if ranking_tag else "",
             'photo': photo_tag.get("src", "") if photo_tag else "",
-            'link': link_tag.get("href", "") if link_tag else ""
         })
 
             # print(quote.find(class_ = "text").get_text())  # grab txt out o them
@@ -79,13 +74,15 @@ def scrape_products():
 
 
 def write_products(products):
-    with open("products.csv", "w", encoding="utf-8") as file:
-        headers = ['discounted_price', 'full_price', 'name', 'name_kor', 'brand', 'ranking', 'photo', 'link']
+    with open("soko_glam.csv", "w", encoding="utf-8") as file:
+        headers = ['full_price', 'name', 'brand', 'photo']
         csv_writer = DictWriter(file, fieldnames=headers)
         csv_writer.writeheader()
         for product in products:
             csv_writer.writerow(product)
 
 
+
 products = scrape_products()
 write_products(products)
+

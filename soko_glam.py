@@ -7,7 +7,7 @@ from time import sleep
 
 from random import choice
 from csv import DictWriter
-
+from csv import DictReader
 
 def scrape_products():
     all_products = []
@@ -71,6 +71,14 @@ def scrape_products():
     return all_products
 
 
+def read_products(filename):
+    with open(filename, "r", encoding="utf-8") as file:
+        csv_reader = DictReader(file)
+        return list(csv_reader)
+        # for thing in csv_reader:
+        #     print(thing)
+
+
 def write_products(products):
     with open("soko_glam.csv", "w", encoding="utf-8") as file:
         headers = ['full_price', 'name', 'brand', 'photo']
@@ -79,6 +87,6 @@ def write_products(products):
         for product in products:
             csv_writer.writerow(product)
 
-
+read_products("products.csv")
 products = scrape_products()
 write_products(products)
