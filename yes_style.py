@@ -27,25 +27,27 @@ def scrape_products():
 
     products = soup.select("li.order-best-product")
     for product in products:
-        sleep(3)
-            # inside of a span, just find by class
-        # full_price_tag = product.select_one("div.price-info > span")
-        # kor_name_tag = product.select_one("input.korPrdtName")
-        # photo_tag = product.select_one("div.unit-thumb img")
-        # link_tag = product.select_one("div.unit-thumb a")
-        # all_products.append({
-        #     'full_price': full_price_tag.get_text(strip=True) if full_price_tag else "",
-        #         # should filter out the usd
-        #     'discounted_price': product.select_one("strong.point").get_text(strip=True),
-        #         # should filter out the usd
-        #     'name': product.select_one("dl.brand-info > dd").get_text(strip=True),  #
-        #     'name_kor': kor_name_tag.get("value","") if kor_name_tag else "",  #
-        #     'brand': product.select_one("dl.brand-info > dt").get_text(strip=True),  #
-        #     'ranking': product.select_one("div.rank-badge > span").get_text(strip=True),  #
-        #     'photo': product.select_one("src","") if photo_tag else "",  #
-        #     'link': product.select_one("title","") if photo_tag else "" #
-        # })
+        sleep(5)
 
+        # def parse(self, response):
+        #         products = response.css('div.card-information')  # Updated to match actual structure
+        #         for idx, product in enumerate(products, start=1):
+        #             product_data = {
+        #                 'ranking': idx,
+        #                 'name': product.css('p.product-title::text').get(default='').strip(),
+        #                 'brand': product.css('span.vendor::text').get(default='').strip(),
+        #                 'price': product.css('span.price::text').get(default='').strip(),
+        #                 'link': response.urljoin(product.css('a.full-unstyled-link::attr(href)').get()),
+        #                 'photo': product.css('img.motion-reduce::attr(src)').get(default=''),
+        #             }
+        #
+        #             print(product_data)
+        #             yield product_data
+        #
+        #         # Pagination (if needed)
+        #         next_page = response.css('a.pagination__next::attr(href)').get()
+        #         if next_page:
+        #             yield response.follow(next_page, self.parse)
         full_price_tag = product.select_one("div.price-info > span")
         discounted_price_tag = product.select_one("strong.point")
         name_tag = product.select_one("dl.brand-info > dd")
